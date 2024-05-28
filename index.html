@@ -7,14 +7,13 @@
   </head>
   <style>
     body {
-      margin: 0;
+      margin: 0px 3em 0px 3em;
+      padding: 2em;
     }
     ul {
-      margin: 0;
       display: flex;
       list-style: none;
-      padding: 2em;
-      margin: 0px 3em 0px 3em;
+      
     }
     li {
       text-decoration: none;
@@ -37,6 +36,28 @@
       display: flex;
       margin-right: 1em;
     }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      /* grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); */
+      grid-gap: 20px;
+    }
+
+    .card {
+      display: grid;
+      grid-template-rows: max-content 200px 1fr;
+    }
+
+    .card img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+    footer{
+      background-color: black;
+      color:white;
+    }
   </style>
   <body>
     <nav>
@@ -51,7 +72,8 @@
                 style="width: 250px"
               />
 
-              <a href="#"
+              <a
+                href="#"
                 style="
                   background-color: #1082e6;
                   text-align: center;
@@ -78,8 +100,9 @@
               </a>
             </div>
           </li>
-          <li style="margin-right: 1em;">
-            <a href="#"
+          <li style="margin-right: 1em">
+            <a
+              href="#"
               style="
                 background-color: white;
                 border: none;
@@ -91,7 +114,7 @@
               Login
             </a>
           </li>
-          <li style="align-self: center;">
+          <li style="align-self: center">
             <a href="#" style="background-color: white; border: none">
               <svg
                 width="30px"
@@ -127,6 +150,59 @@
         </div>
       </ul>
     </nav>
-    <main></main>
+    <main>
+      <div class="cards">
+        <article class="card">
+          <header>
+            <h2>A short heading</h2>
+          </header>
+          <img src="/assets/images/houses/house1.jpg" srcset="">
+          <div class="content">
+            <p>
+              The idea of reaching the North Pole by means of balloons appears
+              to have been entertained many years ago.
+            </p>
+          </div>
+        </article>
+
+        <article class="card">
+          <header>
+            <h2>A short heading</h2>
+          </header>
+          <img src="/assets/images/houses/house1.jpg" srcset="">
+          <div class="content">
+            <p>Short content.</p>
+          </div>
+          <footer>I have a footer!</footer>
+        </article>
+
+        <article class="card">
+          <header>
+            <h2>A longer heading in this card</h2>
+          </header>
+          <img src="/assets/images/houses/house1.jpg" srcset="">
+          <div class="content">
+            <p>
+              In a curious work, published in Paris in 1863 by Delaville
+              Dedreux, there is a suggestion for reaching the North Pole by an
+              aerostat.
+            </p>
+          </div>
+          <footer>I have a footer!</footer>
+        </article>
+        <article class="card">
+          <header>
+            <h2>A short heading</h2>
+          </header>
+          <img src="/assets/images/houses/house1.jpg" srcset="">
+          <div class="content">
+            <p>
+              The idea of reaching the North Pole by means of balloons appears
+              to have been entertained many years ago.
+            </p>
+          </div>
+        </article>
+      </div>
+    </main>
   </body>
 </html>
