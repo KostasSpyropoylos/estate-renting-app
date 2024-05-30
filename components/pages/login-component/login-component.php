@@ -6,11 +6,11 @@
       href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="login-style.css" />
+    <link rel="stylesheet" href="components\pages\login-component\login-style.css" />
   </head>
   <body>
     <div class="main">
-      <form action="action_page.php" method="post">
+      <form action="/home" method="post">
         <div class="imgcontainer">
           <svg
             width="50px"
@@ -48,17 +48,40 @@
             <input type="text" placeholder="Username" name="uname" required />
           </div>
           <div class="item">
-            <input type="password" placeholder="Password" name="psw" required />
+            <input type="password" placeholder="Password" name="password" required />
           </div>
           <div class="actions-container">
             <span class="psw">Not a member yet?</span>
             <a href="/components/pages/signup-component/signup-component.html" class="signup">Signup</a>
           </div>
           <div class="item login-btn">
-            <a href="#" class="login-btn">Login</a>
+            <button href="#" class="login-btn">Login</button>
           </div>
         </div>
       </form>
     </div>
   </body>
+
+  <?php
+
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get email and password from the form
+    $uname = $_POST['uname'];
+    $password = $_POST['password'];
+
+    // Store email and password in session variables
+    $_SESSION['uname'] = $uname;
+    $_SESSION['password'] = $password;
+
+    // Redirect to a welcome page or any other page
+    
+    header("Location: /home");
+    exit();
+} else {
+    // If the form is not submitted, redirect back to the form
+    // header("Location: ../../../index.php");
+    exit();
+}
+?>
 </html>

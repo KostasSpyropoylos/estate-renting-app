@@ -1,37 +1,6 @@
 
   <style>
-    body {
-      margin: 0px 3em 0px 3em;
-      padding: 2em;
-    }
-    ul {
-      padding: 0px;
-      display: flex;
-      list-style: none;
-    }
-    li {
-      text-decoration: none;
-    }
-    a {
-      text-decoration: none;
-      color: black;
-    }
-    .logo {
-      margin: 0px;
-      font-size: 35px;
-      font-weight: 800;
-    }
-    .flex-right {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-    }
-
-    .flex {
-      display: flex;
-      margin-right: 1em;
-    }
-
+  
     .cards {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -82,13 +51,15 @@
       margin-top: 12px;
     }
   </style>
-      <? 
+      <?php
+    session_start();
+
     include("components\layout\header.php");
       ?> 
     <main>
       <div class="cards">
         <article class="card">
-          <a
+          <a 
             href="components\pages\house-details-component\house-details-component.php"
           >
             <img src="/assets/images/houses/house1.jpg" srcset="" />
@@ -179,5 +150,8 @@
         </article>
       </div>
     </main>
+
+
   </body>
+
 </html>

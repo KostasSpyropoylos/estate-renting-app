@@ -6,7 +6,7 @@
       href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="login-style.css" />
+    <link rel="stylesheet" href="/components/pages/signup-component/signup-style.css" />
   </head>
   <body>
     <div class="main">

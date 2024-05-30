@@ -1,6 +1,12 @@
-<? 
+
+
+<?php
     include("..\..\layout\header.php");
 ?> 
+
+<style>
+<?php include './components/pages/house-details-component/house-details.css'; ?>
+</style>
     <main>
       <div class="main-container">
         <!-- <div class="header">
