@@ -9,7 +9,7 @@
   <body>
     <nav>
       <ul>
-        <li><a class="logo" href="/index.html">Spitoulis</a></li>
+        <li><a class="logo" href="/index.php">Spitoulis</a></li>
         <div class="flex-right">
           <li>
             <div class="flex">
@@ -49,7 +49,7 @@
           </li>
           <li style="margin-right: 1em"></li>
           <li style="align-self: center" class="toggleOptions">
-            <a href="/components/pages/login-component/login-component.html" style="background-color: white; border: none">
+            <a href="/components/pages//login-component//login-component.php" style="background-color: white; border: none">
               <svg
                 width="30px"
                 height="30px"
@@ -66,7 +66,7 @@
                 />
               </svg>
             </a>
-            <a href="/components/pages/login-component/login-component.html" style="background-color: white; border: none">
+            <a href="/components/pages//login-component//login-component.php" style="background-color: white; border: none">
               <svg
                 width="30px"
                 height="30px"
