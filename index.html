@@ -14,7 +14,6 @@
       padding: 0px;
       display: flex;
       list-style: none;
-      
     }
     li {
       text-decoration: none;
@@ -24,7 +23,7 @@
       color: black;
     }
     .logo {
-      margin:0px;
+      margin: 0px;
       font-size: 35px;
       font-weight: 800;
     }
@@ -49,7 +48,8 @@
     .card {
       display: grid;
       grid-template-rows: max-content 200px 1fr;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
       width: 430px;
       text-align: center;
     }
@@ -59,34 +59,34 @@
       width: 100%;
       height: 100%;
     }
-    footer{
+    footer {
       background-color: black;
-      color:white;
+      color: white;
     }
     h2 {
-            margin: 0 0 8px;
-            font-size: 1.5em;
-            color: #333;
-        }
+      margin: 0 0 8px;
+      font-size: 1.5em;
+      color: #333;
+    }
     p {
-            margin: 4px 0;
-            color: #666;
-        }
+      margin: 4px 0;
+      color: #666;
+    }
     .price {
-        font-weight: bold;
-        color: #000;
-        }
+      font-weight: bold;
+      color: #000;
+    }
     .book-button {
-            display: block;
-            width: 100%;
-            padding: 10px 0px;
-            text-align: center;
-            background-color: #28a745;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            margin-top: 12px;
-        }
+      display: block;
+      width: 100%;
+      padding: 10px 0px;
+      text-align: center;
+      background-color: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 12px;
+    }
   </style>
   <body>
     <nav>
@@ -129,8 +129,9 @@
               </a>
             </div>
           </li>
-          <li style="margin-right: 1em;">
-            <a href="/components/pages/login-component/login-component.html"
+          <li style="margin-right: 1em">
+            <a
+              href="/components/pages/login-component/login-component.html"
               style="
                 background-color: white;
                 border: none;
@@ -180,101 +181,96 @@
     </nav>
     <main>
       <div class="cards">
-
         <article class="card">
-          
-          <img src="/assets/images/houses/house1.jpg" srcset="">
+          <a
+            href="/components/pages/house-details-component/house-details-component.html"
+          >
+            <img src="/assets/images/houses/house1.jpg" srcset="" />
+            <div class="content">
+              <h2>Τίτλος Ακινήτου</h2>
+              <p>Περιοχή: Αθήνα</p>
+              <p>Πλήθος δωματίων: 3</p>
+              <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
+              <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
+            </div>
+          </a>
+        </article>
+        <article class="card">
+          <img src="/assets/images/houses/house1.jpg" srcset="" />
           <div class="content">
             <h2>Τίτλος Ακινήτου</h2>
             <p>Περιοχή: Αθήνα</p>
             <p>Πλήθος δωματίων: 3</p>
             <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
             <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
-        </article>
-        <article class="card">
-          
-          <img src="/assets/images/houses/house1.jpg" srcset="">
-          <div class="content">
-            <h2>Τίτλος Ακινήτου</h2>
-            <p>Περιοχή: Αθήνα</p>
-            <p>Πλήθος δωματίων: 3</p>
-            <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
-            <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
-        </article>
-        <article class="card">
-          <a href="/components/pages/house-details-component/house-details-component.html">
-          <header>
-            <h2>A short heading</h2>
-          </header>
-          <img src="/assets/images/houses/house1.jpg" srcset="">
-          <div class="content">
-            <p>
-              The idea of reaching the North Pole by means of balloons appears
-              to have been entertained many years ago.
-            </p>
           </div>
-        </a>
         </article>
         <article class="card">
-          
-          <img src="/assets/images/houses/house1.jpg" srcset="">
+          <a
+            href="/components/pages/house-details-component/house-details-component.html"
+          >
+            <header>
+              <h2>A short heading</h2>
+            </header>
+            <img src="/assets/images/houses/house1.jpg" srcset="" />
+            <div class="content">
+              <p>
+                The idea of reaching the North Pole by means of balloons appears
+                to have been entertained many years ago.
+              </p>
+            </div>
+          </a>
+        </article>
+        <article class="card">
+          <img src="/assets/images/houses/house1.jpg" srcset="" />
           <div class="content">
             <h2>Τίτλος Ακινήτου</h2>
             <p>Περιοχή: Αθήνα</p>
             <p>Πλήθος δωματίων: 3</p>
             <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
             <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
+          </div>
         </article>
         <article class="card">
-          
-          <img src="/assets/images/houses/house1.jpg" srcset="">
+          <img src="/assets/images/houses/house1.jpg" srcset="" />
           <div class="content">
             <h2>Τίτλος Ακινήτου</h2>
             <p>Περιοχή: Αθήνα</p>
             <p>Πλήθος δωματίων: 3</p>
             <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
             <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
+          </div>
         </article>
         <article class="card">
-          
-          <img src="/assets/images/houses/house1.jpg" srcset="">
+          <img src="/assets/images/houses/house1.jpg" srcset="" />
           <div class="content">
             <h2>Τίτλος Ακινήτου</h2>
             <p>Περιοχή: Αθήνα</p>
             <p>Πλήθος δωματίων: 3</p>
             <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
             <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
+          </div>
         </article>
         <article class="card">
-          
-          <img src="/assets/images/houses/house1.jpg" srcset="">
+          <img src="/assets/images/houses/house1.jpg" srcset="" />
           <div class="content">
             <h2>Τίτλος Ακινήτου</h2>
             <p>Περιοχή: Αθήνα</p>
             <p>Πλήθος δωματίων: 3</p>
             <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
             <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
+          </div>
         </article>
         <article class="card">
-          
-          <img src="/assets/images/houses/house1.jpg" srcset="">
+          <img src="/assets/images/houses/house1.jpg" srcset="" />
           <div class="content">
             <h2>Τίτλος Ακινήτου</h2>
             <p>Περιοχή: Αθήνα</p>
             <p>Πλήθος δωματίων: 3</p>
             <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
             <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
+          </div>
         </article>
-
-        
-       
       </div>
     </main>
   </body>
