@@ -8,6 +8,7 @@ $requestUri = strtok($_SERVER['REQUEST_URI'], '?');
 $routes = [
     '/' => 'components/pages/listings-component/listings-component.php',
     '/listing-details' => 'components\pages\house-details-component\house-details-component.php',
+    '/create-listing' => 'components\pages\create-listing-component\create-listing.component.php',
     '/login' => 'components/pages/login-component/login-component.php',
     '/process' => 'components/pages/login-component/process.php',
     '/logout' => 'components\layout\logout.php',
