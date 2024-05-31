@@ -51,11 +51,11 @@
             <input type="password" placeholder="Password" name="psw" required />
           </div>
           <div class="actions-container">
-            <span class="psw">Not a member yet?</span>
-            <a href="#" class="signup">Signup</a>
+            <span class="psw">Already a member?</span>
+            <a href="/login" class="signup">Login</a>
           </div>
           <div class="item login-btn">
-            <a href="#" class="login-btn">Login</a>
+            <a href="#" class="login-btn">Register</a>
           </div>
         </div>
       </form>
