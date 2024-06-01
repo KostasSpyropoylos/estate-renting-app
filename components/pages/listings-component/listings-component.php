@@ -1,7 +1,7 @@
 <?php
 include("components\layout\header.php");
 ?>
-
+<?php require 'components\pages\login-component\db_connection.php';?>
 
 <style>
   main {
@@ -89,119 +89,52 @@ include("components\layout\header.php");
 
 
 <main>
-  <div class="cards">
-    <!-- Row 1 -->
-    <article class="card">
-      <a href="/listing-details">
-        <img src="/assets/images/houses/house1.jpg" alt="House Image" />
-        <div class="content">
-          <h2>Τίτλος Ακινήτου</h2>
-          <p>Περιοχή: Αθήνα</p>
-          <p>Πλήθος δωματίων: 3</p>
-          <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
-          <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
-      </a>
-    </article>
-    <article class="card">
-      <a href="/listing-details">
-        <img src="/assets/images/houses/house1.jpg" alt="House Image" />
-        <div class="content">
-          <h2>Τίτλος Ακινήτου</h2>
-          <p>Περιοχή: Αθήνα</p>
-          <p>Πλήθος δωματίων: 3</p>
-          <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
-          <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
-      </a>
-    </article>
-    <article class="card">
-      <a href="/listing-details">
-        <img src="/assets/images/houses/house1.jpg" alt="House Image" />
-        <div class="content">
-          <h2>Τίτλος Ακινήτου</h2>
-          <p>Περιοχή: Αθήνα</p>
-          <p>Πλήθος δωματίων: 3</p>
-          <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
-          <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
-      </a>
-    </article>
-    <!-- Row 2 -->
-    <article class="card">
-      <a href="/listing-details">
-        <img src="/assets/images/houses/house1.jpg" alt="House Image" />
-        <div class="content">
-          <h2>Τίτλος Ακινήτου</h2>
-          <p>Περιοχή: Αθήνα</p>
-          <p>Πλήθος δωματίων: 3</p>
-          <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
-          <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
-      </a>
-    </article>
-    <article class="card">
-      <a href="/listing-details">
-        <img src="/assets/images/houses/house1.jpg" alt="House Image" />
-        <div class="content">
-          <h2>Τίτλος Ακινήτου</h2>
-          <p>Περιοχή: Αθήνα</p>
-          <p>Πλήθος δωματίων: 3</p>
-          <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
-          <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
-      </a>
-    </article>
-    <article class="card">
-      <a href="/listing-details">
-        <img src="/assets/images/houses/house1.jpg" alt="House Image" />
-        <div class="content">
-          <h2>Τίτλος Ακινήτου</h2>
-          <p>Περιοχή: Αθήνα</p>
-          <p>Πλήθος δωματίων: 3</p>
-          <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
-          <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
-      </a>
-    </article>
-    <!-- Row 3 -->
-    <article class="card">
-      <a href="/listing-details">
-        <img src="/assets/images/houses/house1.jpg" alt="House Image" />
-        <div class="content">
-          <h2>Τίτλος Ακινήτου</h2>
-          <p>Περιοχή: Αθήνα</p>
-          <p>Πλήθος δωματίων: 3</p>
-          <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
-          <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
-      </a>
-    </article>
-    <article class="card">
-      <a href="/listing-details">
-        <img src="/assets/images/houses/house1.jpg" alt="House Image" />
-        <div class="content">
-          <h2>Τίτλος Ακινήτου</h2>
-          <p>Περιοχή: Αθήνα</p>
-          <p>Πλήθος δωματίων: 3</p>
-          <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
-          <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
-      </a>
-    </article>
-    <article class="card">
-      <a href="/listing-details">
-        <img src="/assets/images/houses/house1.jpg" alt="House Image" />
-        <div class="content">
-          <h2>Τίτλος Ακινήτου</h2>
-          <p>Περιοχή: Αθήνα</p>
-          <p>Πλήθος δωματίων: 3</p>
-          <p class="price">Τιμή ανά διανυκτέρευση: €100</p>
-          <a href="interface3.html" class="book-button">Κράτηση ακινήτου</a>
-        </div>
-      </a>
-    </article>
-  </div>
+  
+<?php
+  // Assuming you have already established a database connection
+  // Fetch properties from the database
+  $propertiesPerPage = 6;
+  $page = isset($_GET['page']) ? $_GET['page'] : 1;
+  $offset = ($page - 1) * $propertiesPerPage;
+
+  // Query to fetch properties from the database with pagination
+  $query = "SELECT * FROM properties LIMIT $offset, $propertiesPerPage";
+  $result = mysqli_query($conn, $query);
+
+  // Display properties
+  echo '<div class="cards">';
+  while ($row = mysqli_fetch_assoc($result)) {
+    echo '<article class="card">';
+    echo '<a href="/listing-details">';
+    echo '<img src="' . $row['photo'] . '" alt="House Image" />';
+    echo '<div class="content">';
+    echo '<h2>' . $row['title'] . '</h2>';
+    echo '<p>Περιοχή: ' . $row['area'] . '</p>';
+    echo '<p>Πλήθος δωματίων: ' . $row['num_rooms'] . '</p>';
+    echo '<p class="price">Τιμή ανά διανυκτέρευση: €' . $row['price_per_night'] . '</p>';
+    echo '<a href="/listing-details" class="book-button">Κράτηση ακινήτου</a>';
+    echo '</div>';
+    echo '</a>';
+    echo '</article>';
+  }
+  echo '</div>';
+
+  // Pagination
+  $totalRecords = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM properties"));
+  $totalPages = ceil($totalRecords / $propertiesPerPage);
+  echo '<div class="pagination">';
+  if ($page > 1) {
+    echo '<a href="?page=' . ($page - 1) . '" class="prev">&laquo; Previous</a>';
+  }
+  if ($page < $totalPages) {
+    echo '<a href="?page=' . ($page + 1) . '" class="next">Next &raquo;</a>';
+  }
+  echo '</div>';
+
+  // Close database connection
+  ?>
+
+
 </main>
 
 </body>

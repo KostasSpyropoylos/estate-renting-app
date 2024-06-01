@@ -6,7 +6,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="components\pages\login-component\login-style.css" />
 </head>
-
 <body>
   <div class="main">
     <form action="/process" method="post">

@@ -2,9 +2,8 @@
 // Start the session
 
 // Check if email and password are set in the session
-if (isset($_SESSION['uname']) && isset($_SESSION['password'])) {
-    $uname = $_SESSION['uname'];
-    $password = $_SESSION['password'];
+if (isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
+    $uname = $_SESSION['username'];
 } else {
     // If the session variables are not set, redirect back to the form
     header("Location: /login");
