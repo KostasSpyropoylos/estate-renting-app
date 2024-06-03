@@ -21,4 +21,5 @@ if (array_key_exists($requestUri, $routes)) {
     // Handle 404 Not Found
     http_response_code(404);
     require ('components\pages\404.php');
+    die();
 }

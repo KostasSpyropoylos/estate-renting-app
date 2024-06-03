@@ -106,21 +106,21 @@ include("components\layout\header.php");
   // Display properties
   echo '<div class="cards">';
   while ($row = mysqli_fetch_assoc($result)) {
-    echo '<article class="card">';
-    echo '<a href="/listing-details">';
-    echo '<img src="assets\images\houses\house1.jpg' .  '" alt="House Image" />';
-    echo '<div class="content">';
-    echo '<h2>' . $row['title'] . '</h2>';
-    echo '<p>Περιοχή: ' . $row['area'] . '</p>';
-    echo '<p>Πλήθος δωματίων: ' . $row['num_rooms'] . '</p>';
-    echo '<p class="price">Τιμή ανά διανυκτέρευση: €' . $row['price_per_night'] . '</p>';
-    echo '<a href="/listing-details" class="book-button">Κράτηση ακινήτου</a>';
-    echo '</div>';
-    echo '</a>';
-    echo '</article>';
+  
+      echo '<article class="card">';
+      echo '<a href="/listing-details?id=' . $row['id'] . '">';
+      echo '<img src="assets/images/houses/house1.jpg" alt="House Image" />';
+      echo '<div class="content">';
+      echo '<h2>' . $row['title'] . '</h2>';
+      echo '<p>Περιοχή: ' . $row['area'] . '</p>';
+      echo '<p>Πλήθος δωματίων: ' . $row['num_rooms'] . '</p>';
+      echo '<p class="price">Τιμή ανά διανυκτέρευση: €' . $row['price_per_night'] . '</p>';
+      echo '<a href="/listing-details?id=' . $row['id'] . '" class="book-button">Κράτηση ακινήτου</a>';
+      echo '</div>';
+      echo '</a>';
+      echo '</article>';
   }
   echo '</div>';
-
   // Pagination
   $totalRecords = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM properties"));
   $totalPages = ceil($totalRecords / $propertiesPerPage);
