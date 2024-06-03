@@ -1,7 +1,9 @@
 <?php
 include("components\layout\header.php");
 ?>
-<?php require 'components\pages\login-component\db_connection.php';?>
+<?php require 'components\pages\login-component\db_connection.php';
+  
+?>
 
 <style>
   main {
@@ -106,7 +108,7 @@ include("components\layout\header.php");
   while ($row = mysqli_fetch_assoc($result)) {
     echo '<article class="card">';
     echo '<a href="/listing-details">';
-    echo '<img src="' . $row['photo'] . '" alt="House Image" />';
+    echo '<img src="assets\images\houses\house1.jpg' .  '" alt="House Image" />';
     echo '<div class="content">';
     echo '<h2>' . $row['title'] . '</h2>';
     echo '<p>Περιοχή: ' . $row['area'] . '</p>';
@@ -122,7 +124,7 @@ include("components\layout\header.php");
   // Pagination
   $totalRecords = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM properties"));
   $totalPages = ceil($totalRecords / $propertiesPerPage);
-  echo '<div class="pagination">';
+  echo '<div class="pagination" style="float:right">';
   if ($page > 1) {
     echo '<a href="?page=' . ($page - 1) . '" class="prev">&laquo; Previous</a>';
   }

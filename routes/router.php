@@ -1,7 +1,6 @@
 <?php
 // Start the session
 session_start();
-
 // Get the request URI and remove any query string
 $requestUri = strtok($_SERVER['REQUEST_URI'], '?');
 // Define your routes
@@ -21,5 +20,5 @@ if (array_key_exists($requestUri, $routes)) {
 } else {
     // Handle 404 Not Found
     http_response_code(404);
-    echo "404 Not Found";
+    require ('components\pages\404.php');
 }
