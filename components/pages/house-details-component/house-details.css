@@ -93,3 +93,26 @@ main {
     justify-content: space-between;
   }
 
+  /* Reset default styles */
+#datePicker {
+}
+
+/* Styled button */
+.date-picker-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 200px; /* Adjust width as needed */
+  cursor: pointer;
+}
+
+.date-picker-btn::after {
+  margin-left: 10px;
+}
+

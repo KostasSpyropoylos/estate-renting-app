@@ -104,13 +104,21 @@
       padding: 10px;
       z-index: 1000;
       height: 150px;
-      /* Καθορισμένο ύψος για το dropdown menu */
       overflow-y: auto;
-      /* Ενεργοποίηση κατακόρυφου scroll εάν το περιεχόμενο υπερβαίνει το ύψος */
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      opacity: 0;
+      transform: translateY(-10px);
+      flex-direction: column;
+      justify-content: center;
+      /* Centers items vertically */
+      align-items: center;
+      /* Centers items horizontally */
     }
 
     .dropdown-menu.active {
       display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .dropdown-menu a {
@@ -118,39 +126,121 @@
       padding: 10px;
       text-decoration: none;
       color: #333;
+      transition: background-color 0.3s ease;
     }
 
     .dropdown-menu a:hover {
       background-color: #f0f0f0;
     }
 
+    footer {
+      background-color: #f7f7f7;
+      padding: 40px 0;
+      border-top: 1px solid #eaeaea;
+    }
+
+    footer h3 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    footer ul li {
+      margin-bottom: 10px;
+    }
+
+    footer ul li a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    footer ul li a:hover {
+      text-decoration: underline;
+    }
+
+    footer select {
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    footer img {
+      width: 24px;
+      height: 24px;
+    }
+
+    footer .social-links a {
+      margin-right: 10px;
+      text-decoration: none;
+    }
+
+    footer .social-links a img {
+      width: 24px;
+      height: 24px;
+    }
+
+    footer .copy {
+      text-align: center;
+      padding: 20px 0;
+      border-top: 1px solid #eaeaea;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    footer .copy a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    footer .copy a:hover {
+      text-decoration: underline;
+    }
+
+
     @media (max-width: 768px) {
+
       .navbar {
         flex-direction: column;
         height: auto;
         padding: 10px;
       }
 
-      .navbar .logo {
-        margin-bottom: 10px;
-      }
+
 
       .flex-right {
         flex-direction: column;
         align-items: flex-start;
+        width: 100%;
       }
 
       .search-container {
         margin-right: 0;
         margin-bottom: 10px;
+        /* width: 100%; */
+        display: black;
+        align-self: center;
+      }
+
+      .flex-right.show-search .search-container {
+        display: block;
       }
 
       .toggleOptions {
         margin-top: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
       }
 
       .dropdown-menu {
         top: 30px;
+        width: 100%;
       }
     }
   </style>
@@ -158,14 +248,12 @@
 <?php
 // Check if email and password are set in the session
 if (isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
-  
 } else {
   // If the session variables are not set, redirect back to the form
   // header("Location: /");
   // exit();
 }
 ?>
-
 
 <body>
   <nav>
@@ -182,7 +270,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
             </a>
           </div>
         </li>
-        <li class="toggleOptions">
+        <li class="toggleOptions ">
           <a href="#" class="toggle-button">
             <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4 6H20M4 12H20M4 18H20" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -197,15 +285,16 @@ if (isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
           </a>
 
           <div class="dropdown-menu">
-            <a><?php if (isset($_SESSION['username'])){ echo $_SESSION['username'];}?></a>
-            <a href='/create-listing'>Create Listing</a>
-            <div class="disappear" <?php if (isset($_SESSION['username'])){?>style="display:none"<?php } ?>>
-            <a href='/login'>Login</a>
-            <a href='/register'>Register</a>
-            </div>
-            <div class="logout" <?php if (!isset($_SESSION['username'])){?>style="display:none"<?php } ?>>
-            <a href='/logout'>Logout</a>
-            </div>
+            <?php if (isset($_SESSION['username'])) : ?>
+              <a><?php echo htmlspecialchars($_SESSION['username']); ?></a>
+              <a href='/create-listing'>Create Listing</a>
+              <div class="logout">
+                <a href='/logout'>Logout</a>
+              </div>
+            <?php else : ?>
+              <a href='/login'>Login</a>
+              <a href='/register'>Register</a>
+            <?php endif; ?>
           </div>
         </li>
       </div>
@@ -213,7 +302,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
   </nav>
 
   <script>
-    // opens the dropbox
+    // Opens the dropbox
     document.querySelectorAll('.toggle-button').forEach(button => {
       button.addEventListener('click', function(event) {
         event.preventDefault();
@@ -223,7 +312,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
         }
       });
     });
-    // closes the dropbox
+
+    // Closes the dropbox
     document.addEventListener('click', function(event) {
       const isClickInside = event.target.closest('.toggleOptions');
       if (!isClickInside) {
@@ -231,5 +321,11 @@ if (isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
           menu.classList.remove('active');
         });
       }
+    });
+
+    // Toggles search bar visibility on small screens
+    document.querySelector('.toggle-search').addEventListener('click', function(event) {
+      event.preventDefault();
+      document.querySelector('.flex-right').classList.toggle('show-search');
     });
   </script>

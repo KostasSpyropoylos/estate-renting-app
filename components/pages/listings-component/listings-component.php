@@ -2,7 +2,7 @@
 include("components\layout\header.php");
 ?>
 <?php require 'components\pages\login-component\db_connection.php';
-  
+
 ?>
 
 <style>
@@ -12,9 +12,9 @@ include("components\layout\header.php");
   }
 
   .cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
     padding: 20px;
     margin-top: 20px;
   }
@@ -23,8 +23,6 @@ include("components\layout\header.php");
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin: 10px;
-    width: calc(33% - 40px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
     text-align: left;
@@ -41,6 +39,15 @@ include("components\layout\header.php");
     width: 100%;
   }
 
+  a:link {
+    text-decoration: none;
+  }
+
+  a:visited {
+    text-decoration: none;
+    color: black;
+  }
+
   .content {
     padding: 20px;
   }
@@ -48,6 +55,7 @@ include("components\layout\header.php");
   .content h2 {
     font-size: 1.5em;
     margin: 0 0 10px;
+    color: #000;
   }
 
   .content p {
@@ -65,7 +73,7 @@ include("components\layout\header.php");
     margin-top: 10px;
     padding: 10px 20px;
     background-color: #007bff;
-    color: #fff;
+    color: white;
     text-align: center;
     text-decoration: none;
     border-radius: 5px;
@@ -77,25 +85,21 @@ include("components\layout\header.php");
   }
 
   @media (max-width: 768px) {
-    .card {
-      width: calc(50% - 40px);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .card {
-      width: 100%;
+    .cards {
+      grid-template-columns: 1fr;
+      margin-top: 7em;
     }
   }
 </style>
 
 
+
 <main>
-  
-<?php
+
+  <?php
   // Assuming you have already established a database connection
   // Fetch properties from the database
-  $propertiesPerPage = 6;
+  $propertiesPerPage = 4;
   $page = isset($_GET['page']) ? $_GET['page'] : 1;
   $offset = ($page - 1) * $propertiesPerPage;
 
@@ -106,19 +110,19 @@ include("components\layout\header.php");
   // Display properties
   echo '<div class="cards">';
   while ($row = mysqli_fetch_assoc($result)) {
-  
-      echo '<article class="card">';
-      echo '<a href="/listing-details?id=' . $row['id'] . '">';
-      echo '<img src="assets/images/houses/house1.jpg" alt="House Image" />';
-      echo '<div class="content">';
-      echo '<h2>' . $row['title'] . '</h2>';
-      echo '<p>Περιοχή: ' . $row['area'] . '</p>';
-      echo '<p>Πλήθος δωματίων: ' . $row['num_rooms'] . '</p>';
-      echo '<p class="price">Τιμή ανά διανυκτέρευση: €' . $row['price_per_night'] . '</p>';
-      echo '<a href="/listing-details?id=' . $row['id'] . '" class="book-button">Κράτηση ακινήτου</a>';
-      echo '</div>';
-      echo '</a>';
-      echo '</article>';
+
+    echo '<article class="card">';
+    echo '<a href="/listing-details?id=' . $row['id'] . '">';
+    echo '<img src="assets/images/houses/house1.jpg" alt="House Image" />';
+    echo '<div class="content">';
+    echo '<h2>' . $row['title'] . '</h2>';
+    echo '<p>Περιοχή: ' . $row['area'] . '</p>';
+    echo '<p>Πλήθος δωματίων: ' . $row['num_rooms'] . '</p>';
+    echo '<p class="price">Τιμή ανά διανυκτέρευση: €' . $row['price_per_night'] . '</p>';
+    echo '<a href="/listing-details?id=' . $row['id'] . '" class="book-button">Κράτηση ακινήτου</a>';
+    echo '</div>';
+    echo '</a>';
+    echo '</article>';
   }
   echo '</div>';
   // Pagination
