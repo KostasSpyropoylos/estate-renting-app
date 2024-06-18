@@ -1,4 +1,4 @@
-<footer style="background-color: #f7f7f7; padding: 40px 0; border-top: 1px solid #eaeaea;">
+<footer style="background-color: white; padding: 40px 0; border-top: 1px solid #eaeaea; margin-top:2em;">
   <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; flex-wrap: wrap;">
 
     <!-- Support -->
@@ -41,7 +41,7 @@
     </div>
 
     <!-- Map -->
-    <div style=" margin-bottom: 20px;">
+    <div style="margin-bottom: 20px;">
       <iframe src="https://www.google.com/maps/embed?pb=!4v1718300310575!6m8!1m7!1sLIk656gNUU85jfskl0q76g!2m2!1d37.94199714734869!2d23.65258437150497!3f305.2412!4f0!5f0.7820865974627469" width="300" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 

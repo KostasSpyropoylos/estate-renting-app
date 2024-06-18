@@ -1,6 +1,8 @@
+/* Default styles (for screens wider than 768px) */
 main {
   padding: 0em 5em;
 }
+
 .main-container {
   margin-top: 5em;
   display: flex;
@@ -11,8 +13,9 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap:5px
+  gap: 5px;
 }
+
 .image-right {
   width: 1000px;
   height: 500px;
@@ -24,95 +27,112 @@ main {
   height: 197px;
 }
 
-.column-grid{
-    display: flex;
-    gap:7px
+.column-grid {
+  display: flex;
+  gap: 7px;
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
 
-/* Dropdown  */
-/* Style The Dropdown Button */
-.dropbtn {
-    background-color: #3498DB;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.guest,
+.children,
+.dogs {
+  padding: 0.8em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.description-container {
+  margin-top: 3em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  align-items: center;
+}
+
+input,
+.book-btn {
+  padding: 12px 20px;
+  margin: 8px 0;
+}
+
+/* Media queries */
+
+@media (max-width: 768px) {
+  main {
+    padding: 0em 0em; /* Adjusted padding for smaller screens */
+    margin: 0em 0em;
+    margin-top: 2em;
+    width: 100%;
   }
-  
-  /* Dropdown button on hover & focus */
-  .dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
+
+  .main-container {
+    margin-top: 5em;
+    display: grid;
+    grid-template-columns: 1fr;
   }
-  
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
-    position: relative;
-    display: inline-block;
+
+  .image-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
   }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
+
+  .image-right {
+    width: 100%; /* Adjusted width for responsiveness */
+    height: auto; /* Maintain aspect ratio */
+    border: 3px solid black;
+    border-radius: 1em 1em 0em 0em;
+  }
+  /* Hide images on phone */
+  .column-grid {
     display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  /* Links inside the dropdown */
-  /* .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  } */
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #ddd;}
-  
-  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-  .show {display:block;}
-
-  .guest{
-    
-    padding: 0.8em;
-    display: flex;
-    justify-content: space-between;
-  }
-  .children{
-    padding: 0.8em;
-    display: flex;
-    justify-content: space-between;
-  }
-  .dogs{
-    padding: 0.8em;
-    display: flex;
-    justify-content: space-between;
   }
 
-  /* Reset default styles */
-#datePicker {
+  .description-container {
+    margin-top: 3em;
+    grid-template-columns: 1fr; /* Single column layout for description on smaller screens */
+  }
+  form {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 }
 
-/* Styled button */
-.date-picker-btn {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border: none;
-  font-size: 16px;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: #f5f5f5;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 200px; /* Adjust width as needed */
-  cursor: pointer;
-}
+@media (max-width: 480px) {
+  main {
+    padding: 0em 1em; /* Further reduced padding for very small screens */
+  }
 
-.date-picker-btn::after {
-  margin-left: 10px;
-}
+  /* No changes needed for .main-container, .image-container, .column-grid, .image-right, .description-container as they are already adjusted in the 768px media query */
 
+  .column-grid > img {
+    height: 80px; /* Adjusted image height for even smaller screens */
+  }
+}

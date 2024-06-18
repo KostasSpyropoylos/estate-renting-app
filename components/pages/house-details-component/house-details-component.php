@@ -53,7 +53,7 @@ include("components\layout\header.php");
           <img src="/assets/images/houses/house3.jpg" alt="" />
           <img src="/assets/images/houses/house5.jpg" alt="" style="border-radius: 0em 0em 1em 0em" />
         </div>
-        <div class="column actions">
+        <!-- <div class="column actions">
           <input type="date" id="datePicker" name="datePicker">
 
           <div class="dropdown">
@@ -89,17 +89,28 @@ include("components\layout\header.php");
               </div>
             </div>
           </div>
+        </div> -->
+
+      </div>
+      <div class="description-container">
+        <div class="house-details">
+          <p><strong>Bedrooms:</strong> <?php echo $listing['num_rooms']; ?></p>
+          <p>
+            <strong>Description:</strong> <?php echo $listing['description']; ?>
+          </p>
         </div>
-
+        <div class="form-container">
+          <h3>Select dates</h3>
+          <form>
+            <label for="fname">From Date:</label>
+            <input type="date" id="datePicker" name="datePicker" required>
+            <label for="lname">To Date:</label>
+            <input type="date" id="datePicker" name="datePicker" required>
+            <button type="submit" class="book-btn">Book Now</button>
+          </form>
+        </div>
       </div>
-      <div class="house-details">
-        <p><strong>Bedrooms:</strong> <?php echo $listing['num_rooms']; ?></p>
-        <p>
-          <strong>Description:</strong> <?php echo $listing['description']; ?>
-        </p>
 
-        </p>
-      </div>
     </div>
   </div>
 </main>

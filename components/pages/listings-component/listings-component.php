@@ -128,7 +128,7 @@ include("components\layout\header.php");
   // Pagination
   $totalRecords = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM properties"));
   $totalPages = ceil($totalRecords / $propertiesPerPage);
-  echo '<div class="pagination" style="float:right">';
+  echo '<div class="pagination" style="float:right; margin-bottom:2em;">';
   if ($page > 1) {
     echo '<a href="?page=' . ($page - 1) . '" class="prev">&laquo; Previous</a>';
   }
@@ -142,6 +142,11 @@ include("components\layout\header.php");
 
 
 </main>
+
+<?php
+include("components/layout/foot.php");
+?>
+
 
 </body>
 
