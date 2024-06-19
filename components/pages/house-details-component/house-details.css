@@ -71,15 +71,21 @@ main {
   align-items: center;
 }
 
-form {
+/* form {
   display: flex;
   align-items: center;
-}
+} */
 
 input,
 .book-btn {
   padding: 12px 20px;
   margin: 8px 0;
+}
+
+#userDetailsForm {
+  display: grid;
+  grid-template-columns: 0.2fr;
+  align-items: center;
 }
 
 /* Media queries */
