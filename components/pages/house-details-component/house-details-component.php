@@ -45,24 +45,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Check availability
   $sql = "SELECT * FROM reservations WHERE property_id = ? AND (start_date <= ? AND end_date >= ?)";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param('issss', $id, $endDate, $endDate, $startDate, $startDate);
+  $stmt->bind_param('iss', $id, $endDate, $startDate);
   $stmt->execute();
   $result = $stmt->get_result();
 
   if ($result->num_rows > 0) {
     echo 'unavailable';
-    header("Location: /login");
-    exit();
   } else {
     echo 'available';
-    header("Location: /logout");
-    exit();
+ 
   }
 
   $stmt->close();
-}
+  $conn->close();
+  exit();
 
-$conn->close();
+     // Function to get the price per night from the database
+     function getPricePerNight($propertyId)
+     {
+ 
+       $sql = "SELECT price_per_night FROM properties WHERE id = ?";
+       $stmt = $conn->prepare($sql);
+       $stmt->bind_param('i', $propertyId);
+       $stmt->execute();
+       $stmt->bind_result($pricePerNight);
+       $stmt->fetch();
+ 
+       $stmt->close();
+       $conn->close();
+ 
+       return $pricePerNight;
+     }
+ 
+     // Function to calculate the final amount after applying a random discount
+     function calculateFinalAmount($pricePerNight, $numNights)
+     {
+       // Calculate initial payment amount
+       $initialAmount = $pricePerNight * $numNights;
+ 
+       // Generate random discount percentage between 10 and 30
+       $discountPercentage = rand(10, 30) / 100;
+ 
+       // Calculate final payment amount
+       $finalAmount = $initialAmount - ($initialAmount * $discountPercentage);
+ 
+       return $finalAmount;
+     }
+}
 ?>
 
 <?php include("components/layout/header.php"); ?>
@@ -120,7 +149,6 @@ $conn->close();
     event.preventDefault();
 
     const startDate = document.getElementById('startDate').value;
-    console.log(startDate)
     const endDate = document.getElementById('endDate').value;
 
     if (!startDate || !endDate) {
@@ -134,12 +162,13 @@ $conn->close();
 
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
-        // if (xhr.responseText === 'available') {
-        document.getElementById('contact-info').style.display = 'block';
-        fillUserDetails();
-        // } else {
-        //   alert('Το ακίνητο δεν είναι διαθέσιμο για τις επιλεγμένες ημερομηνίες. Παρακαλώ επιλέξτε άλλες ημερομηνίες.');
-        // }
+        console.log(xhr.responseText)
+        if (xhr.responseText.trim() === 'available') {
+          document.getElementById('contact-info').style.display = 'block';
+          fillUserDetails();
+        } else {
+          alert('Το ακίνητο δεν είναι διαθέσιμο για τις επιλεγμένες ημερομηνίες. Παρακαλώ επιλέξτε άλλες ημερομηνίες.');
+        }
       }
     };
 
@@ -150,5 +179,6 @@ $conn->close();
     document.getElementById('firstName').value = '<?php echo htmlspecialchars($_SESSION['firstName']); ?>';
     document.getElementById('lastName').value = '<?php echo htmlspecialchars($_SESSION['lastName']); ?>';
     document.getElementById('email').value = '<?php echo htmlspecialchars($_SESSION['email']); ?>';
+    calculateExpense();
   }
 </script>
