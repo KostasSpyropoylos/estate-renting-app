@@ -1,96 +1,97 @@
 <?php
-// Start the session and include database connection
-// session_start();
+//Include database connection
 require 'components/pages/login-component/db_connection.php';
 
 $id = $_GET['id'] ?? null;
 
 if (!$id) {
-  echo 'Invalid property ID';
-  exit();
-}
-
-// Check if username and user_id are set in the session
-if (isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
-  $uname = $_SESSION['username'];
-
-  if ($stmt = $conn->prepare('SELECT * FROM properties WHERE id = ?')) {
-    $stmt->bind_param('i', $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-      // Fetch the data and use it as needed
-      $listing = $result->fetch_assoc();
-    } else {
-      echo 'Listing not found';
-      exit();
-    }
-
-    $stmt->close();
-  } else {
-    echo 'Failed to prepare the statement';
+    echo 'Invalid property ID';
     exit();
-  }
-} else {
-  // If the session variables are not set, redirect back to the login form
-  header("Location: /login");
-  exit();
 }
 
+/*
+  Check if username and user_id are set in the session
+  Then fetch the right listing by the id passed in the url
+*/ 
+if (isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
+    $uname = $_SESSION['username'];
+    $user_id = $_SESSION['user_id'];
+
+    if ($stmt = $conn->prepare('SELECT * FROM properties WHERE id = ?')) {
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // Fetch the data and use it as needed
+            $listing = $result->fetch_assoc();
+        } else {
+            echo 'Listing not found';
+            exit();
+        }
+
+        $stmt->close();
+    } else {
+        echo 'Something went wrong with the statement';
+        exit();
+    }
+} else {
+    // If the session variables are not set, redirect back to the login form
+    header("Location: /login");
+    exit();
+}
+/* Checks which form triggered the post request
+  If firstForm triggered the event then search db if there is availability
+  If secondForm triggered the event insert the values to reservation table
+*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $startDate = $_POST['startDate'];
-  $endDate = $_POST['endDate'];
+    $step = $_POST['step'] ?? 'firstForm';
+    $startDate = $_POST['startDate'];
+    $endDate = $_POST['endDate'];
 
-  // Check availability
-  $sql = "SELECT * FROM reservations WHERE property_id = ? AND (start_date <= ? AND end_date >= ?)";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param('iss', $id, $endDate, $startDate);
-  $stmt->execute();
-  $result = $stmt->get_result();
+    if ($step == 'firstForm') {
+        // Check availability
+        $sql = "SELECT * FROM reservations WHERE property_id = ? AND (start_date <= ? AND end_date >= ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('iss', $id, $endDate, $startDate);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-  if ($result->num_rows > 0) {
-    echo 'unavailable';
-  } else {
-    echo 'available';
- 
-  }
+        if ($result->num_rows > 0) {
+            echo 'unavailable';
+        } else {
+            echo 'available';
+        }
 
-  $stmt->close();
-  $conn->close();
-  exit();
+        $stmt->close();
+        $conn->close();
+        exit();
+    } elseif ($step == 'secondForm') {
+        $name = $_POST['firstName'];
+        $surname = $_POST['lastName'];
+        $email = $_POST['email'];
+        $pricePerNight = $listing['price_per_night'];
+        // this converts the date difference from msecs to actual days
+        $days = (strtotime($endDate) - strtotime($startDate)) / (60 * 60 * 24);
+        $totalAmount = $days * $pricePerNight;
 
-     // Function to get the price per night from the database
-     function getPricePerNight($propertyId)
-     {
- 
-       $sql = "SELECT price_per_night FROM properties WHERE id = ?";
-       $stmt = $conn->prepare($sql);
-       $stmt->bind_param('i', $propertyId);
-       $stmt->execute();
-       $stmt->bind_result($pricePerNight);
-       $stmt->fetch();
- 
-       $stmt->close();
-       $conn->close();
- 
-       return $pricePerNight;
-     }
- 
-     // Function to calculate the final amount after applying a random discount
-     function calculateFinalAmount($pricePerNight, $numNights)
-     {
-       // Calculate initial payment amount
-       $initialAmount = $pricePerNight * $numNights;
- 
-       // Generate random discount percentage between 10 and 30
-       $discountPercentage = rand(10, 30) / 100;
- 
-       // Calculate final payment amount
-       $finalAmount = $initialAmount - ($initialAmount * $discountPercentage);
- 
-       return $finalAmount;
-     }
+        // Insert reservation into the database
+        $sql = "INSERT INTO reservations (user_id, property_id, start_date, end_date, total_price) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('iissd', $user_id, $id, $startDate, $endDate, $totalAmount);
+
+        if ($stmt->execute()) {
+            // Redirect to the same listing by id with a success message
+            header("Location: /listing-details?id=$id&status=success");
+            exit();
+        } else {
+            echo 'Failed to make the reservation';
+        }
+
+        $stmt->close();
+        $conn->close();
+        exit();
+    }
 }
 ?>
 
@@ -121,6 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="form-container">
           <h3>Select dates</h3>
           <form id="bookingForm" method="post" onsubmit="checkAvailability(event)">
+            <input type="hidden" name="step" value="firstForm">
             <label for="startDate">From Date:</label>
             <input type="date" id="startDate" name="startDate" required>
             <label for="endDate">To Date:</label>
@@ -131,10 +133,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <div id="contact-info" style="display:none;">
         <h1>Στοιχεία Κράτησης</h1>
-        <form id="userDetailsForm">
-          Όνομα: <input type="text" id="firstName" name="firstName" value="<?php echo htmlspecialchars($_SESSION['username']); ?>" required>
-          Επώνυμο: <input type="text" id="lastName" name="lastName" value="Παπαδόπουλος" required> <!-- Αντικαταστήστε με το πραγματικό επώνυμο -->
-          Email: <input type="email" id="email" name="email" value="giannis@example.com" required> <!-- Αντικαταστήστε με το πραγματικό email -->
+        <form id="userDetailsForm" method="post" action="/listing-details?id=<?php echo $id; ?>">
+          <input type="hidden" name="step" value="secondForm">
+          <input type="hidden" name="startDate" id="step2StartDate">
+          <input type="hidden" name="endDate" id="step2EndDate">
+          Όνομα: <input type="text" id="firstName" name="firstName" value="<?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?>" required>
+          Επώνυμο: <input type="text" id="lastName" name="lastName" value="Παπαδόπουλος" required>
+          Email: <input type="email" id="email" name="email" value="giannis@example.com" required>
+          <p>Συνολικό Ποσό: <span id="totalAmount"></span> &euro;</p>
           <button type="submit">Κράτηση</button>
         </form>
       </div>
@@ -145,6 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include("components/layout/foot.php"); ?>
 
 <script>
+  // Gets the value from the date fields and 
   function checkAvailability(event) {
     event.preventDefault();
 
@@ -155,30 +162,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       alert("Παρακαλώ επιλέξτε τις ημερομηνίες!");
       return;
     }
-
+    // Initialisation of AJΑΧ request to pass data for backend
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/listing-details?id=<?php echo $id; ?>', true); // Προσθήκη παραμέτρου ID
+    // Sends the data to the  URL /listing-details?id=
+    xhr.open('POST', '/listing-details?id=<?php echo $id; ?>', true); 
+    // Encodes data 
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
+
     xhr.onreadystatechange = function() {
+      /* 
+      xhr.readyState=== 4 the state is finished
+      xhr.status === 200 is successfull
+      */
       if (xhr.readyState === 4 && xhr.status === 200) {
-        console.log(xhr.responseText)
         if (xhr.responseText.trim() === 'available') {
           document.getElementById('contact-info').style.display = 'block';
+          document.getElementById('step2StartDate').value = startDate;
+          document.getElementById('step2EndDate').value = endDate;
+
           fillUserDetails();
+
+          const startDateObj = new Date(startDate);
+          const endDateObj = new Date(endDate);
+          const pricePerNight = <?php echo json_encode($listing['price_per_night']); ?>;
+          const days = Math.ceil((endDateObj - startDateObj) / (1000 * 60 * 60 * 24));
+          const totalAmount = days * pricePerNight;
+          document.getElementById('totalAmount').textContent = totalAmount;
         } else {
           alert('Το ακίνητο δεν είναι διαθέσιμο για τις επιλεγμένες ημερομηνίες. Παρακαλώ επιλέξτε άλλες ημερομηνίες.');
         }
       }
     };
-
+    // sends the dates through the url in order to be checked for availability
     xhr.send(`startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`);
   }
-
+// Sets the details of logged in user
   function fillUserDetails() {
-    document.getElementById('firstName').value = '<?php echo htmlspecialchars($_SESSION['firstName']); ?>';
-    document.getElementById('lastName').value = '<?php echo htmlspecialchars($_SESSION['lastName']); ?>';
-    document.getElementById('email').value = '<?php echo htmlspecialchars($_SESSION['email']); ?>';
-    calculateExpense();
+    document.getElementById('firstName').value = '<?php echo htmlspecialchars($_SESSION['firstName'] ?? ''); ?>';
+    document.getElementById('lastName').value = '<?php echo htmlspecialchars($_SESSION['lastName'] ?? ''); ?>';
+    document.getElementById('email').value = '<?php echo htmlspecialchars($_SESSION['email'] ?? ''); ?>';
   }
+  // Listener that informs user that the reservation was successful
+  window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('status') === 'success') {
+      alert('Η κράτησή σας ήταν επιτυχής!');
+    }else if (urlParams.get('status') === 'success') {
+      alert('Κάτι πήγε στραβά!');
+    }
+  };
 </script>
