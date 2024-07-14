@@ -11,16 +11,16 @@ Our application allows users to browse available properties for short-term renta
 
 ## Interfaces
 
-### [1. Feed](#1-feed)
+### 1. Feed
 The main page displays all available properties for short-term rental. Each property is accompanied by essential information like photo, title, location, number of rooms, and price per night. Users can browse properties and make reservations upon logging in.
 
-### [2. Login/Register](#2-loginregister)
+### 2. Login/Register
 Users can register for a new account or log in using the provided form. Registration requires first name, last name, unique username, password, and unique email. Validation ensures data integrity.
 
-### [3. Book](#3-book)
+### 3. Book
 This interface handles property reservation. Users can select booking dates, and the system checks availability. Upon confirmation, users enter their details, and the final payment amount is calculated with a random discount percentage.
 
-### [4. Create Listing](#4-create-listing)
+### 4. Create Listing
 Users can create listings for their properties by providing details such as photo, title, location, number of rooms, and price per night. Upon submission, if all details are valid, the listing is saved, and users receive a confirmation message.
 
 ## Database
@@ -49,7 +49,3 @@ The footer is present on all interfaces and includes contact information of the 
     http://localhost:3000/
     ```
     The project uses custom routing.
-
----
-
-Feel free to explore and contribute to the project! For any issues, please contact us using the information provided in the footer.
