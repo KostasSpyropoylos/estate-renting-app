@@ -496,7 +496,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
 <!-- <body> -->
 <nav>
   <ul class="navbar">
-    <li><a class="logo" href="/">Spitoulis</a></li>
+    <li><a class="logo" href="/">DS Estate</a></li>
     <div class="flex-right">
       <li class="search-container">
         <div class="search-box">
